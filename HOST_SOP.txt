@@ -1,0 +1,290 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║           ShopForge — Standard Operating Procedure (SOP)                   ║
+║           Local Hosting Guide · Python + SQLite + Flask                    ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Document Version : 1.0
+Last Updated     : 2025
+Platform         : Windows / macOS / Linux
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 1 — PREREQUISITES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Requirement       Minimum Version    How to Verify
+─────────────────────────────────────────────────
+Python            3.8+               python --version   (or python3 --version)
+pip               20+                pip --version
+Web Browser       Any modern         Chrome / Firefox / Edge / Safari
+Disk Space        ~10 MB             For app + SQLite database
+RAM               ~50 MB             Minimal footprint
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 2 — PROJECT FILE STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+shopforge/
+├── app.py                  ← Main Flask application + all SQL logic
+├── shopforge.db            ← SQLite database (auto-created on first run)
+├── requirements.txt        ← Python dependencies
+├── HOST_SOP.txt            ← This file
+└── templates/
+    └── index.html          ← Full frontend (HTML + CSS + JS)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 3 — STEP-BY-STEP SETUP (ALL PLATFORMS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1 · Download / Extract the Project Files
+──────────────────────────────────────────────
+  Place all files (app.py, templates/, HOST_SOP.txt) in a folder.
+  Example folder name: shopforge
+
+  Windows:   C:\Users\YourName\Desktop\shopforge\
+  macOS:     ~/Desktop/shopforge/
+  Linux:     ~/shopforge/
+
+
+STEP 2 · Open a Terminal / Command Prompt
+──────────────────────────────────────────
+  Windows:  Press Win+R → type cmd → Enter
+            OR search "Command Prompt" or "PowerShell" in Start menu
+  macOS:    Applications → Utilities → Terminal
+            OR press Cmd+Space → type "Terminal"
+  Linux:    Ctrl+Alt+T (most distros)
+
+
+STEP 3 · Navigate to the Project Folder
+────────────────────────────────────────
+  Type these commands (replace the path with your actual folder):
+
+  Windows:
+    cd C:\Users\YourName\Desktop\shopforge
+
+  macOS / Linux:
+    cd ~/Desktop/shopforge
+
+
+STEP 4 · (Recommended) Create a Virtual Environment
+────────────────────────────────────────────────────
+  A virtual environment keeps dependencies isolated.
+
+  Windows:
+    python -m venv venv
+    venv\Scripts\activate
+
+  macOS / Linux:
+    python3 -m venv venv
+    source venv/bin/activate
+
+  You will see (venv) appear at the start of your terminal prompt.
+  This step is optional but highly recommended.
+
+
+STEP 5 · Install Dependencies
+──────────────────────────────
+  Run this command in the terminal:
+
+    pip install flask
+
+  Or if you have a requirements.txt:
+
+    pip install -r requirements.txt
+
+  Expected output ends with:
+    Successfully installed flask-X.X.X ...
+
+
+STEP 6 · Run the Application
+──────────────────────────────
+  Windows:
+    python app.py
+
+  macOS / Linux:
+    python3 app.py
+
+  Expected output:
+    ┌─────────────────────────────────────┐
+    │  * Serving Flask app 'app'          │
+    │  * Debug mode: on                   │
+    │  * Running on http://127.0.0.1:5000 │
+    │  Press CTRL+C to quit               │
+    └─────────────────────────────────────┘
+
+  NOTE: The SQLite database (shopforge.db) is automatically created
+        and seeded with demo data on the FIRST run only.
+
+
+STEP 7 · Open in Browser
+─────────────────────────
+  Open your preferred browser and go to:
+
+    http://localhost:5000
+    OR
+    http://127.0.0.1:5000
+
+  You should see the ShopForge dashboard immediately.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 4 — REQUIREMENTS.TXT (create this file manually)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a file named requirements.txt in the project root with:
+
+    flask>=2.3.0
+
+That's the only external dependency. SQLite is built into Python.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 5 — PLATFORM-SPECIFIC NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+WINDOWS
+  • If "python" is not recognized, try "py" instead:  py app.py
+  • Windows Firewall may prompt — allow access if you plan to
+    access from another device on the same network.
+  • Use PowerShell instead of cmd for better Unicode support.
+
+macOS
+  • macOS ships with Python 2.7 on older versions. Use python3.
+  • If Python 3 is not installed: brew install python3
+    (requires Homebrew: https://brew.sh)
+  • Give Terminal full disk access if you encounter permission errors.
+
+Linux (Debian/Ubuntu)
+  • Install if missing: sudo apt update && sudo apt install python3 python3-pip
+  • For Fedora/CentOS: sudo dnf install python3 python3-pip
+  • Run with: python3 app.py
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 6 — ACCESSING FROM ANOTHER DEVICE (SAME NETWORK)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+By default Flask only serves on localhost. To expose to the network:
+
+  1. Edit the last line of app.py:
+
+     CHANGE:   app.run(debug=True, port=5000)
+     TO:       app.run(debug=True, port=5000, host='0.0.0.0')
+
+  2. Find your local IP address:
+     Windows:  ipconfig  → look for "IPv4 Address"
+     macOS:    ifconfig | grep "inet "
+     Linux:    ip addr show | grep "inet "
+
+  3. Access from another device on the same Wi-Fi:
+     http://192.168.X.X:5000   (use your actual IP)
+
+  ⚠ WARNING: Do not expose to the public internet without adding
+    authentication and HTTPS. This setup is for local/dev use only.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 7 — CHANGING THE PORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If port 5000 is already in use:
+
+  Edit the last line of app.py:
+    app.run(debug=True, port=8080)   ← change 5000 to any free port
+
+  Then access: http://localhost:8080
+
+  Common free ports: 8000, 8080, 8888, 9000
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 8 — RESETTING THE DATABASE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+To start fresh with clean seeded data:
+
+  1. Stop the app (Ctrl+C)
+  2. Delete the database file:
+     Windows:  del shopforge.db
+     macOS/Linux: rm shopforge.db
+  3. Run the app again:  python3 app.py
+
+The database will be recreated automatically with fresh demo data.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 9 — TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem               Likely Cause              Fix
+──────────────────────────────────────────────────────────────────
+"python not found"    Python not in PATH        Use python3 or py
+"flask not found"     Flask not installed       pip install flask
+"Address in use"      Port 5000 busy            Change port to 8080
+"No module named..."  Wrong environment         Activate venv first
+Page not loading      Server not running        Check terminal output
+DB error on startup   Corrupt shopforge.db      Delete db file, re-run
+"Permission denied"   File system issue         Run as administrator
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 10 — SQL FEATURES DEMONSTRATED IN THIS APP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Feature                     Where Used
+─────────────────────────────────────────────────────────────────
+CREATE TABLE + constraints  Schema: CHECK, UNIQUE, NOT NULL
+Foreign Keys + CASCADE      orders → customers, items → products
+INDEXES                     5 indexes for query performance
+VIEWS (CREATE VIEW)         vw_order_summary, vw_product_performance
+TRIGGERS (CREATE TRIGGER)   Auto-update ratings, log status changes
+TRANSACTIONS (ROLLBACK)     create_order() atomic with stock check
+JOINs (INNER + LEFT)        Order summary, product performance
+GROUP BY + aggregates       Revenue totals, order counts, averages
+Subqueries                  KPI calculations, low-stock check
+CTEs (WITH … AS)            Customer stats, ranked customers
+Window Functions            RANK(), DENSE_RANK(), NTILE(), SUM() OVER
+PARTITION BY                Product rank per category
+strftime()                  Monthly/weekday grouping
+PRAGMA WAL mode             Write-Ahead Logging for concurrency
+SQL Explorer                Run raw SELECT queries via the UI
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 11 — STOPPING THE APP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+In the terminal where the app is running, press:
+
+    Ctrl + C
+
+This gracefully shuts down the Flask development server.
+The SQLite database file (shopforge.db) is preserved on disk.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ QUICK REFERENCE CHEATSHEET
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  # First-time setup
+  cd shopforge
+  python3 -m venv venv && source venv/bin/activate
+  pip install flask
+  python3 app.py
+
+  # Every subsequent run
+  cd shopforge
+  source venv/bin/activate    (skip on Windows: use venv\Scripts\activate)
+  python3 app.py
+
+  # Open app
+  http://localhost:5000
+
+  # Reset data
+  rm shopforge.db && python3 app.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ END OF DOCUMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
