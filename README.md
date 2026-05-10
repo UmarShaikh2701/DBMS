@@ -54,7 +54,7 @@
 ### Step 1 — Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/shopforge.git
+git clone https://github.com/UmarShaikh2701/DBMS
 cd shopforge
 ```
 
